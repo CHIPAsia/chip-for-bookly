@@ -31,12 +31,11 @@ namespace BooklyChip\Lib\Payment;
 
 use Bookly\Lib as BooklyLib;
 use Bookly\Lib\Entities\Payment;
-use BooklyChip\Lib\Payment\Lib\Chip;
 use BooklyChip\Lib\Boot;
 
 class ChipGateway extends BooklyLib\Base\Gateway
 {
-    protected $type = 'chip';
+    protected $type = Payment::TYPE_CHIP;
     protected $on_site = false;
     protected $cached_api;
 

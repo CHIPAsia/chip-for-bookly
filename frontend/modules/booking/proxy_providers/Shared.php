@@ -11,7 +11,7 @@ class Shared extends Proxy\Shared
      */
     public static function preparePaymentOptions( $options, $form_id, $show_price, BooklyLib\CartInfo $cart_info, $userData )
     {
-        $gateway = 'chip';
+        $gateway = BooklyLib\Entities\Payment::TYPE_CHIP;
         if ( Proxy\CustomerGroups::allowedGateway( $gateway, $userData ) !== false ) {
             $cart_info->setGateway( $gateway );
             $url_cards_image = plugins_url( 'backend/modules/settings/resources/images/chip.svg', \BooklyChip\Lib\Plugin::getMainFile() );

@@ -14,7 +14,7 @@ class Shared extends Proxy\Shared
      */
     public static function getGatewayByName( $gateway, Payment\Request $request )
     {
-        if ( $gateway === 'chip' ) {
+        if ( $gateway === Entities\Payment::TYPE_CHIP ) {
             return new ChipGateway( $request );
         }
 
@@ -26,7 +26,7 @@ class Shared extends Proxy\Shared
      */
     public static function paymentSpecificPriceExists( $gateway )
     {
-        if ( $gateway === 'chip' ) {
+        if ( $gateway === Entities\Payment::TYPE_CHIP ) {
             return self::showPaymentSpecificPrices( false );
         }
 
@@ -38,7 +38,7 @@ class Shared extends Proxy\Shared
      */
     public static function applyGateway( CartInfo $cart_info, $gateway )
     {
-        if ( $gateway === 'chip' ) {
+        if ( $gateway === Entities\Payment::TYPE_CHIP ) {
             $cart_info->setGateway( $gateway );
         }
 
@@ -53,7 +53,7 @@ class Shared extends Proxy\Shared
         $timeout = (int) get_option( 'bookly_chip_timeout' );
         if ( $timeout ) {
             $payments = array_merge( $payments, Entities\Payment::query()
-                ->where( 'type', 'chip' )
+                ->where( 'type', Entities\Payment::TYPE_CHIP )
                 ->where( 'status', Entities\Payment::STATUS_PENDING )
                 ->whereLt( 'created_at', date_create( current_time( 'mysql' ) )->modify( sprintf( '- %s seconds', $timeout ) )->format( 'Y-m-d H:i:s' ) )
                 ->fetchCol( 'id' )

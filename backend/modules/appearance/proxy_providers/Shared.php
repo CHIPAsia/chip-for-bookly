@@ -12,7 +12,7 @@ class Shared extends Proxy\Shared
      */
     public static function paymentGateways( $data )
     {
-        $data[ 'chip' ] = array(
+        $data[ Payment::TYPE_CHIP ] = array(
             'label_option_name' => 'bookly_l10n_label_pay_chip',
             'title' => 'Chip',
             'with_card' => false,

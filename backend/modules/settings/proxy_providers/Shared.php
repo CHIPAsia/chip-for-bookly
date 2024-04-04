@@ -2,6 +2,7 @@
 namespace BooklyChip\Backend\Modules\Settings\ProxyProviders;
 
 use Bookly\Backend\Modules\Settings\Proxy;
+use Bookly\Lib\Entities\Payment;
 
 class Shared extends Proxy\Shared
 {
@@ -10,7 +11,7 @@ class Shared extends Proxy\Shared
      */
     public static function preparePaymentGatewaySettings( $payment_data )
     {
-        $type = 'chip';
+        $type = Payment::TYPE_CHIP;
         $payment_data[ $type ] = self::renderTemplate( 'payment_settings', compact( 'type' ), false );
 
         return $payment_data;
