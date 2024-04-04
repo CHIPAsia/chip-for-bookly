@@ -17,31 +17,46 @@ Set the **Brand ID** and **Secret Key** in the plugins settings.
 
 Additional configuration are required at the moment until it is included together in Bookly plugin:
 
-- Edit file *wp-content/plugins/bookly-responsive-appointment-booking-tool/lib/entities/Payment.php*:
-    - Add class constant 
-        ```php
-        const TYPE_CHIP = 'chip';
-        ```
-    - Add case to switch statement in `typeToString` method 
-        ```php
-        case self::TYPE_CHIP:
-        return 'CHIP';
-        ```
-    - Add constant to `getTypes` method
-        ```php
-        self::TYPE_CHIP
-        ```
+* Edit file *wp-content/plugins/bookly-responsive-appointment-booking-tool/lib/entities/Payment.php*:
+  * Add class constant 
 
-- Alter table `wp_bookly_payments` so that *chip* are added to _enum_:
+      ```php
+      const TYPE_CHIP = 'chip';
+      ```
+
+  * Add case to switch statement in `typeToString` method
+
+      ```php
+      case self::TYPE_CHIP:
+      return 'CHIP';
+      ```
+
+  * Add constant to `getTypes` method
+
+      ```php
+      self::TYPE_CHIP
+      ```
+
+* Alter table `wp_bookly_payments` so that *chip* are added to _enum_:
+
     ```sql
     ALTER TABLE `wp_bookly_payments` CHANGE `type` `type` ENUM('chip','local','free','paypal','authorize_net','stripe','2checkout','payu_biz','payu_latam','payson','mollie','woocommerce','cloud_stripe','cloud_square') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'local';
     ```
 
-- Edit file *bookly-responsive-appointment-booking-tool/lib/notifications/cart/Sender.php* (this is temporary until it get fixed by Bookly):
-    - Comment line below by adding *//* in infront of the line:
-        ```php
-        //Proxy\Pro::sendCombinedToClient( false, $order );
-        ```
+* Edit file *bookly-responsive-appointment-booking-tool/lib/notifications/cart/Sender.php* (this is temporary until it get fixed by Bookly):
+  * Comment line below by adding *//* in infront of the line:
+
+      ```php
+      //Proxy\Pro::sendCombinedToClient( false, $order );
+      ```
+
+## Screenshot
+
+![Add class constant](./assets/class_constant.png "Class Constant Screenshot")
+![Add case to switch statement in `typeToString` method](./assets/type_to_string.png "Type To String Screenshot")
+![Add constant to `getTypes` method](./assets/get_types.png "Get Types Screenshot")
+![Alter table `wp_bookly_payments`](./assets/table.png "phpMyAdmin Screenshot")
+![Comment line below by adding *//* in infront of the line](./assets/sender.png "Sender.php file Screenshot")
 
 ## Other
 
